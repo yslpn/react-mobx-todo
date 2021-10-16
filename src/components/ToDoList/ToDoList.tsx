@@ -30,7 +30,9 @@ const ToDoList: FC = observer(() => {
 
     return (
         <>
-            {error ? <div style={{ color: 'tomato' }}>{error}</div> : null}
+            <p>Total in list: {ToDo.toDoList.length}</p>
+
+            {error ? <div style={{ color: 'tomato', marginBottom: '24px', fontSize: '2vmin' }}>{error}</div> : null}
 
             <Form
                 name="basic"
@@ -49,8 +51,6 @@ const ToDoList: FC = observer(() => {
                     </Button>
                 </Form.Item>
             </Form>
-
-            <p>Total to-do list: {ToDo.toDoList.length}</p>
 
             <div>
                 {ToDo.toDoList.map((item) => {
