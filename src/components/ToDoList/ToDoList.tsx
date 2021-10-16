@@ -1,9 +1,10 @@
 import { Input, Button, Form } from "antd";
+import { observer } from "mobx-react-lite";
 import { FC, useState } from "react";
 import ToDo from '../../store/ToDo'
 import ToDoItem from "../ToDoItem/ToDoItem";
 
-const ToDoList: FC = () => {
+const ToDoList: FC = observer(() => {
     const [formData, setFormData] = useState<string>('');
     const [error, setError] = useState<string>('');
 
@@ -33,8 +34,6 @@ const ToDoList: FC = () => {
 
             <Form
                 name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 20 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -44,23 +43,24 @@ const ToDoList: FC = () => {
                     <Input placeholder="What do you want to do?" onChange={onChange} value={formData} />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 0, span: 20 }}>
+                <Form.Item>
                     <Button type="primary" htmlType="submit" >
                         Add
                     </Button>
                 </Form.Item>
             </Form>
+
+            <p>Total to-do list: {ToDo.toDoList.length}</p>
+
             <div>
                 {ToDo.toDoList.map((item) => {
                     return (
-                        <div key={item}>
-                            <ToDoItem element={item} />
-                        </div>
+                        <ToDoItem key={item} element={item} />
                     )
                 })}
             </div>
         </>
     );
-}
+});
 
 export default ToDoList;
