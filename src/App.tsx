@@ -5,7 +5,7 @@ import ToDo from './store/ToDo';
 
 const App: FC = () => {
   useEffect(() => {
-    const getToDoList = JSON.parse(localStorage.getItem('toDoList') || '{}');
+    const getToDoList = JSON.parse(localStorage.getItem('toDoList') || '[]');
     ToDo.addAllList(getToDoList);
   }, [])
 
