@@ -15,10 +15,10 @@ const ToDoList: FC<{ element: TToDoItem }> = observer(({ element }) => {
 
     return (
         <Tag closable onClose={onClose}>
-            <Checkbox style={{ marginRight: '10px' }} checked={element.checked} onChange={onChange} />
+            <Checkbox style={{ marginRight: '10px' }} checked={element.completed} onChange={onChange} />
 
             <span style={{ marginRight: '10px' }}>
-                {element.name}
+                {element.title}
             </span>
         </Tag>
     );

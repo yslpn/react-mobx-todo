@@ -1,4 +1,4 @@
 export type TToDoItem = {
-    name: string;
-    checked: boolean;
+    title: string;
+    completed: boolean;
 };

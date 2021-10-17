@@ -1,27 +1,23 @@
 import { Input, Button, Form } from "antd";
 import { observer } from "mobx-react-lite";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ToDo from '../../store/ToDo'
 import ToDoItem from "../ToDoItem/ToDoItem";
 import { TToDoItem } from "../../types";
 
 const ToDoList: FC = observer(() => {
-    const [formData, setFormData] = useState<TToDoItem>({ name: '', checked: false });
-    const [error, setError] = useState<string>('');
+    const [formData, setFormData] = useState<TToDoItem>({ title: '', completed: false });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, name: e.target.value });
-        setError('');
+        setFormData({ ...formData, title: e.target.value });
+        localStorage.setItem('toDoListInput', JSON.stringify({ ...formData, title: e.target.value }));
+        ToDo.setError('');
     };
 
     const onFinish = (e: React.SyntheticEvent) => {
-        if (formData.name === '') {
-            setError('Cannot be empty.');
-        } else if (ToDo.toDoList.find(item => item.name === formData.name)) {
-            setError('A similar task already exists.');
-        } else {
-            ToDo.addToDoItem(formData);
-            setFormData({ name: '', checked: false });
+        ToDo.addToDoItem(formData);
+        if (ToDo.Error === '') {
+            setFormData({ title: '', completed: false });
         }
     };
 
@@ -33,11 +29,20 @@ const ToDoList: FC = observer(() => {
         ToDo.reset();
     };
 
+    const onFetch = () => {
+        ToDo.fetchRandomToDoItem();
+    };
+
+    useEffect(() => {
+        const inputSavedText = JSON.parse(localStorage.getItem('toDoListInput') || '[]');
+        setFormData(inputSavedText);
+    }, [])
+
     return (
         <>
             <p>Total in list: {ToDo.toDoList.length}</p>
 
-            {error ? <div style={{ color: 'tomato', marginBottom: '24px', fontSize: '2vmin' }}>{error}</div> : null}
+            {ToDo.Error ? <div style={{ color: 'tomato', marginBottom: '24px', fontSize: '2vmin' }}>{ToDo.Error}</div> : null}
 
             <Form
                 name="basic"
@@ -47,15 +52,18 @@ const ToDoList: FC = observer(() => {
                 autoComplete="off"
             >
                 <Form.Item rules={[{ required: true, message: 'Please input your username!' }]}>
-                    <Input placeholder="What do you want to do?" onChange={onChange} value={formData.name} />
+                    <Input placeholder="What do you want to do?" onChange={onChange} value={formData.title} />
                 </Form.Item>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" style={{ marginRight: '8px' }}>
                         Add
                     </Button>
-                    <Button htmlType="button" onClick={onReset}>
+                    <Button htmlType="button" onClick={onReset} style={{ marginRight: '8px' }}>
                         Reset
+                    </Button>
+                    <Button type="link" htmlType="button" onClick={onFetch}>
+                        Fetch
                     </Button>
                 </Form.Item>
             </Form>
@@ -63,7 +71,7 @@ const ToDoList: FC = observer(() => {
             <div>
                 {ToDo.toDoList.map((item) => {
                     return (
-                        <ToDoItem key={item.name} element={item} />
+                        <ToDoItem key={item.title} element={item} />
                     )
                 })}
             </div>
