@@ -1,14 +1,22 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import './App.css';
 import ToDoList from './components/ToDoList/ToDoList';
+import ToDo from './store/ToDo';
 
-const App: FC = () => (
-    <div className="App">
+const App: FC = () => {
+  useEffect(() => {
+    const getToDoList = JSON.parse(localStorage.getItem('toDoList') || '{}');
+    ToDo.addAllList(getToDoList);
+  }, [])
+
+  return (
+    < div className="App" >
       <header className="App-header">
         <h1 className="App-head">To-Do List</h1>
-        <ToDoList/>
+        <ToDoList />
       </header>
-    </div>
-);
+    </div >
+  )
+};
 
 export default App;
