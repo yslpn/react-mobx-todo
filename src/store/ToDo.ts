@@ -6,7 +6,7 @@ class ToDo {
     Error: string = '';
 
     constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
     addToDoItem(item: TToDoItem) {
