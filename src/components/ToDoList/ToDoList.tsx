@@ -18,6 +18,7 @@ const ToDoList: FC = observer(() => {
         ToDo.addToDoItem(formData);
         if (ToDo.Error === '') {
             setFormData({ title: '', completed: false });
+            localStorage.setItem('toDoListInput', '');
         }
     };
 
