@@ -53,7 +53,7 @@ const ToDoList: FC = observer(() => {
                 autoComplete="off"
             >
                 <Form.Item rules={[{ required: true, message: 'Please input your username!' }]}>
-                    <Input placeholder="What do you want to do?" onChange={onChange} value={formData.title} />
+                    <Input placeholder="What do you want to do?" onChange={onChange} value={formData.title} autoFocus/>
                 </Form.Item>
 
                 <Form.Item>
