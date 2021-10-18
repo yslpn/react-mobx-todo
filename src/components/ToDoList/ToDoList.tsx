@@ -3,18 +3,18 @@ import { observer } from "mobx-react-lite";
 import { FC, useEffect, useState } from "react";
 import ToDo from '../../store/ToDo'
 import ToDoItem from "../ToDoItem/ToDoItem";
-import { TToDoItem } from "../../types";
+import { IToDoItem } from "../../types";
 
 const ToDoList: FC = observer(() => {
-    const [formData, setFormData] = useState<TToDoItem>({ title: '', completed: false });
+    const [formData, setFormData] = useState<IToDoItem>({ title: '', completed: false });
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFormData({ ...formData, title: e.target.value });
         localStorage.setItem('toDoListInput', JSON.stringify({ ...formData, title: e.target.value }));
         ToDo.setError('');
     };
 
-    const onFinish = (e: React.SyntheticEvent) => {
+    const onFinish = (): void => {
         ToDo.addToDoItem(formData);
         if (ToDo.Error === '') {
             setFormData({ title: '', completed: false });
@@ -22,19 +22,19 @@ const ToDoList: FC = observer(() => {
         }
     };
 
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo: unknown): void => {
         console.log('Failed:', errorInfo);
     };
 
-    const onReset = () => {
+    const onReset = (): void => {
         ToDo.reset();
     };
 
-    const onFetch = () => {
+    const onFetch = (): void => {
         ToDo.fetchRandomToDoItem();
     };
 
-    useEffect(() => {
+    useEffect((): void => {
         const inputSavedText = JSON.parse(localStorage.getItem('toDoListInput') || '[]');
         setFormData(inputSavedText);
     }, [])
@@ -53,7 +53,7 @@ const ToDoList: FC = observer(() => {
                 autoComplete="off"
             >
                 <Form.Item rules={[{ required: true, message: 'Please input your username!' }]}>
-                    <Input placeholder="What do you want to do?" onChange={onChange} value={formData.title} autoFocus/>
+                    <Input placeholder="What do you want to do?" onChange={onChange} value={formData.title} autoFocus />
                 </Form.Item>
 
                 <Form.Item>

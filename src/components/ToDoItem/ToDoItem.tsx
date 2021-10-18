@@ -2,14 +2,17 @@ import { Checkbox, Tag } from "antd";
 import { observer } from "mobx-react-lite";
 import { FC } from "react";
 import ToDo from "../../store/ToDo";
-import { TToDoItem } from "../../types";
+import { IToDoItem } from "../../types";
+interface IToDoList {
+    element: IToDoItem;
+};
 
-const ToDoList: FC<{ element: TToDoItem }> = observer(({ element }) => {
-    const onClose = () => {
+const ToDoList: FC<IToDoList> = observer(({ element }) => {
+    const onClose = (): void => {
         ToDo.removeToDoItem(element);
     };
 
-    const onChange = () => {
+    const onChange = (): void => {
         ToDo.togleDone(element);
     }
 

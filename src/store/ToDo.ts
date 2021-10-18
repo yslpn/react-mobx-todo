@@ -1,15 +1,15 @@
 import { makeAutoObservable } from "mobx";
-import { TToDoItem } from "../types";
+import { IToDoItem } from "../types";
 
 class ToDo {
-    toDoList: TToDoItem[] = [];
+    toDoList: IToDoItem[] = [];
     Error: string = '';
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    addToDoItem(item: TToDoItem) {
+    addToDoItem(item: IToDoItem): void {
         if (this.toDoList.find(el => el.title === item.title)) {
             this.setError('A similar task already exists.');
         } else if (item.title === '') {
@@ -21,36 +21,36 @@ class ToDo {
         }
     }
 
-    removeToDoItem(item: TToDoItem) {
+    removeToDoItem(item: IToDoItem): void {
         this.toDoList = this.toDoList.filter(val => val !== item);
         localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
         console.log('removeToDoItem:', item);
     }
 
-    togleDone(item: TToDoItem) {
+    togleDone(item: IToDoItem): void {
         const index = this.toDoList.indexOf(item);
         this.toDoList[index].completed = !this.toDoList[index].completed;
         localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
         console.log('togleDone:', item);
     }
 
-    reset() {
+    reset(): void {
         this.toDoList = [];
         localStorage.clear();
         console.log('reset');
     }
 
-    addAllList(items: TToDoItem[]) {
+    addAllList(items: IToDoItem[]): void {
         this.toDoList = items;
         console.log('addAllList:', items);
     }
 
-    setError(text: string) {
+    setError(text: string): void {
         this.Error = text;
         console.log('setError:', text);
     }
 
-    fetchRandomToDoItem() {
+    fetchRandomToDoItem(): void {
         fetch(`https://jsonplaceholder.typicode.com/todos/${Math.floor(Math.random() * 200)}`)
             .then(response => response.json())
             .then(json => {

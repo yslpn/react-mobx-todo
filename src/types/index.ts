@@ -1,4 +1,4 @@
-export type TToDoItem = {
+export interface IToDoItem {
     title: string;
     completed: boolean;
 };
