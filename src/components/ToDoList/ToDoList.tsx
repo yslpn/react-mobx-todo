@@ -9,8 +9,8 @@ const ToDoList: FC = observer(() => {
     const [formData, setFormData] = useState<IToDoItem>({ title: '', completed: false });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setFormData({ ...formData, title: e.target.value });
-        localStorage.setItem('toDoListInput', JSON.stringify({ ...formData, title: e.target.value }));
+        setFormData({ title: e.target.value, completed: false });
+        localStorage.setItem('toDoListInput', JSON.stringify({ title: e.target.value, completed: false }));
         ToDo.setError('');
     };
 
