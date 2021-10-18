@@ -22,10 +22,6 @@ const ToDoList: FC = observer(() => {
         }
     };
 
-    const onFinishFailed = (errorInfo: unknown): void => {
-        console.log('Failed:', errorInfo);
-    };
-
     const onReset = (): void => {
         ToDo.reset();
     };
@@ -49,7 +45,6 @@ const ToDoList: FC = observer(() => {
                 name="basic"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
                 <Form.Item rules={[{ required: true, message: 'Please input your username!' }]}>
