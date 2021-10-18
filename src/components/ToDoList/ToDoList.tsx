@@ -1,11 +1,11 @@
 import { Input, Button, Form } from "antd";
 import { observer } from "mobx-react-lite";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ToDo from '../../store/ToDo'
 import ToDoItem from "../ToDoItem/ToDoItem";
 import { IToDoItem } from "../../types";
 
-const ToDoList: FC = observer(() => {
+const ToDoList = observer((): JSX.Element => {
     const [formData, setFormData] = useState<IToDoItem>({ title: '', completed: false });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
