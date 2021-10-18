@@ -45,9 +45,12 @@ class ToDo {
         console.log('addAllList:', items);
     }
 
-    setError(text: string): void {
+    setError(text: string, error?: string): void {
         this.Error = text;
         console.log('setError:', text);
+        if(error) {
+            console.log(error);
+        }
     }
 
     fetchRandomToDoItem(): void {
@@ -55,7 +58,7 @@ class ToDo {
             .then(response => response.json())
             .then(json => {
                 this.addToDoItem(json);
-            });
+            }).catch((e) => this.setError('Something went wrong. Try again.', e));
     }
 }
 
