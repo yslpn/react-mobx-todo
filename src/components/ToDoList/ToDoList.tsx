@@ -6,7 +6,7 @@ import ToDoItem from "../ToDoItem/ToDoItem";
 import { IToDoItem } from "../../types";
 
 const ToDoList = observer((): JSX.Element => {
-    const [formData, setFormData] = useState<IToDoItem>({ title: '', completed: false });
+    const [formData, setFormData] = useState<IToDoItem>({} as IToDoItem);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFormData({ title: e.target.value, completed: false });
@@ -30,7 +30,7 @@ const ToDoList = observer((): JSX.Element => {
         ToDo.fetchRandomToDoItem();
     };
 
-    useEffect((): void => {
+    useEffect(() => {
         const inputSavedText = JSON.parse(localStorage.getItem('toDoListInput') || '[]');
         setFormData(inputSavedText);
     }, [])
