@@ -48,7 +48,7 @@ class ToDo {
     setError(text: string, error?: string): void {
         this.Error = text;
         console.log('setError:', text);
-        if(error) {
+        if (error) {
             console.log(error);
         }
     }
