@@ -56,9 +56,8 @@ class ToDo {
     fetchRandomToDoItem(): void {
         fetch(`https://jsonplaceholder.typicode.com/todos/${Math.floor(Math.random() * 200)}`)
             .then(response => response.json())
-            .then(json => {
-                this.addToDoItem(json);
-            }).catch((e) => this.setError('Something went wrong. Try again.', e));
+            .then(json => this.addToDoItem(json))
+            .catch(e => this.setError('Something went wrong. Try again.', e));
     }
 }
 
