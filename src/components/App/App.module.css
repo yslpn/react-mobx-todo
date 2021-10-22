@@ -1,10 +1,8 @@
-@import "~antd/dist/antd.css";
-
 .App {
   text-align: center;
 }
 
-.App-header {
+.AppHeader {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -16,6 +14,6 @@
   color: white;
 }
 
-.App-head {
+.AppHead {
   color: #61dafb;
 }

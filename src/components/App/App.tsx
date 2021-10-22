@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import './App.css';
-import ToDoList from './components/ToDoList/ToDoList';
-import ToDo from './store/ToDo';
+import styles from './App.module.css';
+import ToDoList from '../ToDoList/ToDoList';
+import ToDo from '../../store/ToDo';
 
 const App = (): JSX.Element => {
   useEffect(() => {
@@ -10,9 +10,9 @@ const App = (): JSX.Element => {
   }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="App-head">To-Do List</h1>
+    <div className={styles.App}>
+      <header className={styles.AppHeader}>
+        <h1 className={styles.AppHead}>To-Do List</h1>
         <ToDoList />
       </header>
     </div>
