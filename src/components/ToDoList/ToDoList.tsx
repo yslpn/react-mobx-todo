@@ -16,10 +16,8 @@ const ToDoList = observer((): JSX.Element => {
 
     const onFinish = (): void => {
         ToDo.addToDoItem(formData);
-        if (ToDo.Error === '') {
-            setFormData({ title: '', completed: false });
-            localStorage.setItem('toDoListInput', '');
-        }
+        setFormData({ title: '', completed: false });
+        localStorage.setItem('toDoListInput', '');
     };
 
     const onReset = (): void => {

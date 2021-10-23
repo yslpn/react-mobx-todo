@@ -1,6 +1,5 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable} from "mobx";
 import { IToDoItem } from "../types";
-
 class ToDo {
     toDoList: IToDoItem[] = [];
     Error: string = '';
@@ -12,7 +11,7 @@ class ToDo {
     addToDoItem(item: IToDoItem): void {
         if (this.toDoList.find(el => el.title === item.title)) {
             this.setError('A similar task already exists.');
-        } else if (item.title === '') {
+        } else if (item.title === '' || item.title === undefined) {
             this.setError('Cannot be empty.');
         } else {
             this.toDoList.push(item);
